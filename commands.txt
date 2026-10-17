@@ -1,0 +1,43 @@
+# command to run c script in terminal
+clang -std=c11 -Wall -Wextra -g main.c -o hello
+
+
+# Connect to the Renode Monitor
+nc 127.0.0.1 1234
+
+
+# Load the STM32F4 Discovery simulation
+Renode includes a demonstration script for the STM32F4 Discovery platform.
+Inside the Renode Monitor, try:
+include @scripts/single-node/stm32f4_discovery.resc
+
+
+# Install the ARM compiler
+brew install arm-none-eabi-gcc
+
+
+# Compile your firmware
+mkdir -p firmware/stm32/lab_1/build
+
+arm-none-eabi-gcc \
+  -mcpu=cortex-m4 \
+  -mthumb \
+  -std=c11 \
+  -Wall -Wextra \
+  -O0 \
+  -ffreestanding \
+  -fno-builtin \
+  -nostdlib \
+  -Wl,-T,firmware/stm32/lab_1/linker.ld \
+  -Wl,-Map,firmware/stm32/lab_1/build/firmware.map \
+  firmware/stm32/lab_1/startup.c \
+  firmware/stm32/lab_1/main.c \
+  -o firmware/stm32/lab_1/build/firmware.elf
+
+
+# after loading renode you could use these commands to start and load the compiled firmware
+include @scripts/single-node/stm32f4_discovery.resc
+pause
+sysbus LoadELF @/workspace/firmware/stm32/lab_1/build/firmware.elf
+sysbus.cpu Reset
+

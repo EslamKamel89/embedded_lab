@@ -1,0 +1,66 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# VS Code: keep shared project settings, ignore local state
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/c_cpp_properties.json
+*.code-workspace
+
+# C / C++ build outputs
+build/
+Build/
+Debug/
+Release/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+compile_commands.json
+*.o
+*.obj
+*.a
+*.so
+*.dylib
+*.dll
+*.exe
+*.out
+*.d
+*.elf
+*.axf
+*.hex
+*.bin
+*.map
+*.lst
+*.su
+*.gcda
+*.gcno
+*.gcov
+
+# Local executable from host Hello World
+/hello
+/firmware/hello
+
+# Renode-generated runtime artifacts (keep .resc and .repl scripts tracked)
+*.log
+logs/
+*.trace
+*.snapshot
+
+# Python helper environments / caches
+.venv/
+__pycache__/
+.pytest_cache/
+
+# Local-only configuration and secrets
+.env
+.env.*
+!.env.example
+*.dSYM
+summarize.py
+code.txt
+.llmignore
