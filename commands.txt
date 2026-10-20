@@ -1,6 +1,5 @@
-# command to run c script in terminal
-clang -std=c11 -Wall -Wextra -g main.c -o hello
-
+# command to compile c script in terminal
+clang -std=c11 -Wall -Wextra -g main.c -o ./build/hello
 
 # Connect to the Renode Monitor
 nc 127.0.0.1 1234
@@ -36,8 +35,25 @@ arm-none-eabi-gcc \
 
 
 # after loading renode you could use these commands to start and load the compiled firmware
+$bin=@/workspace/firmware/stm32/lab_1/build/firmware.elf
 include @scripts/single-node/stm32f4_discovery.resc
-pause
-sysbus LoadELF @/workspace/firmware/stm32/lab_1/build/firmware.elf
 sysbus.cpu Reset
+start
 
+# command to compile c script in terminal and save the intermediate steps
+clang -std=c11 -Wall -Wextra -O0 \
+  -save-temps=obj \
+  main.c -o build/hello
+
+# 4 compilation steps 
+## 1. Preprocessing
+clang -std=c11 -E main.c -o build/main.i
+
+## 2. Compilation
+clang -std=c11 -O0 -g -S main.c -o build/main.s
+
+## 3. Assembly
+clang -c build/main.s -o build/main.o
+
+## 4. Linking
+clang build/main.o -o build/hello

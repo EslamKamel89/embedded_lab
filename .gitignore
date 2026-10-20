@@ -64,3 +64,4 @@ __pycache__/
 summarize.py
 code.txt
 .llmignore
+resources/*
