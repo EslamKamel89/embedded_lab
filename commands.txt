@@ -1,5 +1,5 @@
 # command to compile c script in terminal
-clang -std=c11 -Wall -Wextra -g main.c -o ./build/hello
+clang -std=c11 -Wall -Wextra -g main.c -o ./build/lab
 
 # Connect to the Renode Monitor
 nc 127.0.0.1 1234
