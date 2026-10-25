@@ -29,6 +29,39 @@ The project uses the following tools, depending on the experiment:
 
 Some experiments run directly on the host computer, while others target simulated or physical microcontrollers.
 
+### VS Code
+
+Open this repository folder in VS Code and enable the recommended **C/C++** extension
+(`ms-vscode.cpptools`). Run **Developer: Reload Window** after changing the setup.
+The workspace enables IntelliSense and error squiggles, overriding the disabled
+IntelliSense engine in the current user's settings. It disables STM32Cube clangd
+for this workspace to avoid competing C language services.
+
+Use **C/C++: Select a Configuration** in the Command Palette:
+
+- **Mac** for `firmware/host/` (Apple Clang, C11, Apple Silicon).
+- **STM32 Cortex-M4** for `firmware/stm32/` (Homebrew Arm GCC and the flags used in `commands.txt`).
+
+Switch configurations when moving between host and STM32 files. The compiler paths
+in `.vscode/c_cpp_properties.json` and `.vscode/tasks.json` match this Mac; adjust
+them on another machine. System header paths are discovered from each compiler.
+
+Completion opens as you type, or with **Control+Space**. Use **Command+.** for
+available quick fixes and **Command+Shift+M** to view Problems. Headers may still
+need to be included manually; automatic header insertion is not guaranteed for
+every C symbol. For example, `printf` needs `<stdio.h>` and `CHAR_BIT` needs
+`<limits.h>`, but `sizeof` is a built-in operator and needs no header.
+
+For compiler diagnostics, save the active `.c` file and press **Command+Shift+B**
+to check a host file. For STM32, run **Tasks: Run Task → C: Check active STM32 file**.
+These tasks check syntax and warnings without producing an executable or checking
+linker errors. Live IntelliSense diagnostics appear while editing.
+
+If live diagnostics remain missing, confirm the file language is **C** in the
+status bar, the workspace is trusted, and the C/C++ extension is enabled for the
+current VS Code profile. Run **C/C++: Log Diagnostics** to inspect the selected
+compiler and header paths.
+
 ## Building and Running
 
 Build and execution instructions depend on the lab.
