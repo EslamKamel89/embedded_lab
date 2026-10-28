@@ -1,0 +1,1 @@
+int deviceStatus = 42;
